@@ -4,15 +4,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Database {
-    protected Connection dbConnection = null; // prisijungimas prie duombazes
-    protected PreparedStatement databasePrepareStatement = null; // uzklausu siuntimui
+    protected static Connection dbConnection = null; // prisijungimas prie duombazes
+    protected static PreparedStatement databasePrepareStatement = null; // uzklausu siuntimui
 
-    private String dbUser = "root";
-    private String dbPassword = "root";
-    private String dbHost = "localhost:3306";
-    private String dbName = "uab_nuoma";
+    private static String dbUser = "root";
+    private static String dbPassword = "root";
+    private static String dbHost = "localhost:3306";
+    private static String dbName = "uab_nuoma";
 
-    Database() {
+    public static void makeDBConnection() {
 
         /* Patikriname ar irasytas JDBC driveris darbui su mysql */
         try {
@@ -28,10 +28,15 @@ public class Database {
          */
         try {
             // DriverManager: The basic service for managing a set of JDBC drivers.
-            dbConnection = DriverManager.getConnection("jdbc:mysql://" + this.dbHost +"/"+ this.dbName +"?useSSL=false", this.dbUser, this.dbPassword);
+            Database.dbConnection = DriverManager.getConnection("jdbc:mysql://" + dbHost +"/"+ dbName +"?useSSL=false", dbUser, dbPassword);
+            System.out.println("Database connection successful");
         } catch (SQLException e) {
             e.printStackTrace();
             return;
         }
+    }
+
+    Database() {
+
     }
 }

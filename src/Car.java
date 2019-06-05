@@ -39,12 +39,12 @@ public class Car extends Database {
         this.userId = userId;
     }
 
-    public void getData() {
+    public static void getData() {
         try {
             String selectQueryStatement = "SELECT * from nuoma_cars";
 
-            databasePrepareStatement = this.dbConnection.prepareStatement(selectQueryStatement);
-            ResultSet results = this.databasePrepareStatement.executeQuery();
+            databasePrepareStatement = dbConnection.prepareStatement(selectQueryStatement);
+            ResultSet results = databasePrepareStatement.executeQuery();
 
             while (results.next()) {
                 /* Gauname rezultatus is duombazes ir issaugome i laikinus darbinius kintamuosius */
