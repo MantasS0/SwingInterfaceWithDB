@@ -12,6 +12,7 @@ public class Car extends Database {
 
     private String carMake;
     private int userId;
+    private User user;
 
 
 
@@ -23,6 +24,24 @@ public class Car extends Database {
         this.carMake = carMake;
         Car.carsCount++;
         System.out.println("Sukurta nauja masina: " + this.carMake);
+    }
+
+    Car(int id, String numberPlate, String carMake, User user) {
+        super();
+        this.id = id;
+        this.numberPlate = numberPlate;
+        this.carMake = carMake;
+        this.user = user;
+        Car.carsCount++;
+        System.out.println("Sukurta nauja masina: " + this.carMake);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public static int getCarsCount() {
@@ -85,9 +104,17 @@ public class Car extends Database {
                 int id = results.getInt("id");
                 String number = results.getString("number_plate");
                 String carMake =  results.getString("car_make");
+                Integer userId =  results.getInt("user_id");
 
                 /* Sukuriame masinos objekta */
-                Car.cars[Car.getCarsCount()] = new Car(id, number, carMake);
+                if(userId != null) {
+                    User temp = User.getUserById(userId);
+                    Car.cars[Car.getCarsCount()] = new Car(id, number, carMake, User.getUserById(userId));
+
+                } else {
+                    Car.cars[Car.getCarsCount()] = new Car(id, number, carMake);
+
+                }
             }
 
         } catch (SQLException e) {

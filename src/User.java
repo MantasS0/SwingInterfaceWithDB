@@ -24,6 +24,15 @@ public class User extends Database {
         System.out.println("Sukurtas naujas user objektas: "  + this.email);
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
     @Override
     public void saveData() {
 
@@ -53,5 +62,17 @@ public class User extends Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static User getUserById(int id) {
+        User temp = null;
+        for(User user : User.users ) {
+            if(user.id == id) {
+                temp = user;
+                break;
+            }
+        }
+
+        return temp;
     }
 }
