@@ -3,10 +3,13 @@ import java.sql.SQLException;
 
 public class Car extends Database {
     private static int carsCount = 0;
-    private static Car[] cars = new Car[10];
+    public static Car[] cars = new Car[10];
 
     private int id;
     private String numberPlate;
+
+
+
     private String carMake;
     private int userId;
 
@@ -30,6 +33,15 @@ public class Car extends Database {
         Car.carsCount = carsCount;
     }
 
+    public String getCarMake() {
+        return carMake;
+    }
+
+    public void setCarMake(String carMake) {
+        this.carMake = carMake;
+//        this.saveData();
+    }
+
 
     public int getUserId() {
         return userId;
@@ -39,12 +51,34 @@ public class Car extends Database {
         this.userId = userId;
     }
 
+    public void saveData() {
+        try {
+            String insertQueryStatement = "UPDATE `nuoma_cars` SET `car_make` = ?, `number_plate` = ?, `user_id` = ? WHERE `nuoma_cars`.`id` = ?;";
+            dbPrepareStatement = dbConnection.prepareStatement(insertQueryStatement);
+            dbPrepareStatement.setString(1, this.carMake);
+            dbPrepareStatement.setString(2, this.numberPlate);
+            dbPrepareStatement.setInt(3, this.userId);
+            dbPrepareStatement.setInt(4, this.id);
+
+            // execute insert SQL statement
+            dbPrepareStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.print("Kazkas blogai");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteData() {
+        // cia rasysime veliau
+    }
+
     public static void getData() {
+
+
         try {
             String selectQueryStatement = "SELECT * from nuoma_cars";
-
-            databasePrepareStatement = dbConnection.prepareStatement(selectQueryStatement);
-            ResultSet results = databasePrepareStatement.executeQuery();
+            dbPrepareStatement = dbConnection.prepareStatement(selectQueryStatement);
+            ResultSet results = dbPrepareStatement.executeQuery();
 
             while (results.next()) {
                 /* Gauname rezultatus is duombazes ir issaugome i laikinus darbinius kintamuosius */

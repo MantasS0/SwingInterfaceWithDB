@@ -3,14 +3,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Database {
+public abstract class Database {
     protected static Connection dbConnection = null; // prisijungimas prie duombazes
-    protected static PreparedStatement databasePrepareStatement = null; // uzklausu siuntimui
+    protected static PreparedStatement dbPrepareStatement = null; // uzklausu siuntimui
 
     private static String dbUser = "root";
     private static String dbPassword = "root";
     private static String dbHost = "localhost:3306";
     private static String dbName = "uab_nuoma";
+
+    public abstract void saveData();
+    public abstract void deleteData();
 
     public static void makeDBConnection() {
 
