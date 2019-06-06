@@ -8,12 +8,13 @@ public abstract class Database {
     protected static PreparedStatement dbPrepareStatement = null; // uzklausu siuntimui
 
     private static String dbUser = "root";
-    private static String dbPassword = "root";
+    private static String dbPassword = "";
     private static String dbHost = "localhost:3306";
-    private static String dbName = "uab_nuoma";
+    private static String dbName = "mydatabase1";
 
     public abstract void saveData();
     public abstract void deleteData();
+    protected abstract int createData();
 
     public static void makeDBConnection() {
 
