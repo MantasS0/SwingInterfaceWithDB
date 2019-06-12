@@ -4,7 +4,7 @@ import java.sql.Statement;
 
 public class Car extends Database {
     private static int carsCount = 0;
-    public static Car[] cars = new Car[10];
+    public static Car[] cars = new Car[100];
 
     private int id;
     private String numberPlate;

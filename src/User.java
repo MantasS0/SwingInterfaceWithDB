@@ -7,7 +7,7 @@ public class User extends Database {
     private String email;
     private String name;
 
-    public static User[] users = new User[10];
+    public static User[] users = new User[100];
 
     public static int getUsersCount() {
         return usersCount;
@@ -62,6 +62,13 @@ public class User extends Database {
 
             // execute insert SQL statement
             dbPrepareStatement.executeUpdate();
+
+            for (User user : User.users) {
+                if (user.id.equals(this.id)){
+                    user.setName(this.name);
+                    user.setEmail(this.email);
+                }
+            }
         } catch (SQLException e) {
             System.out.print("Kazkas blogai");
             e.printStackTrace();
